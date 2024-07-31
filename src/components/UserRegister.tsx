@@ -10,39 +10,29 @@ const UserRegister = () => {
     
     const dispatch = useDispatch();
 
-    const [formInput,setFormInput] = useState<User>({
+    const initialValues:User = {
         id: '',
-        name: '',
-        age: 0,
+        name: 'first name',
+        age: 17,
         email: '',
         contact: 0
-    });
-
-
-    const handleSave = (values,{setSubmitting}) => {
-        setTimeout(() => {
-            
-        let UserID = "ID" + Math.random().toString(16).slice(2);
-
-        console.log(values);
-
-        setFormInput({
-                ...values,
-                id: UserID
-            })
-
-        alert(JSON.stringify(formInput, null, 2));
-        setSubmitting(false);
-
-        dispatch(setUser(formInput));
-
-         }, 400);
-    }
+    };
 
 
   return (
     <section> 
-       <Formik initialValues={formInput} onSubmit={handleSave}>
+       <Formik initialValues={initialValues} onSubmit={(values,{setSubmitting}) => {
+            setTimeout(() => {
+                let UserID = "ID" + Math.random().toString(16).slice(2);
+        
+                setSubmitting(false);
+        
+                dispatch(setUser( {
+                    ...values,
+                    id: UserID
+                }));
+            }, 2000);
+       }}>
         {({
             values,
             handleSubmit,
