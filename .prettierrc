@@ -1,0 +1,15 @@
+{
+    "bracketSpacing": true,
+    "editor.detectIndentation": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "endOfLine": "auto",
+    "jsxBracketSameLine": false,
+    "prettier.eslintIntegration": true,
+    "prettier.semi": true,
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "all"
+}

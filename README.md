@@ -5,6 +5,7 @@ Hey Guys 👋, I'm going to share everything I learn for interviews in this repo
 ## Topic
 
 - Hooks
-- Redux
+- Redux Toolkit
 - Router
 
+- Formik
