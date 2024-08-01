@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit"
-import { User } from "../types/global"
+import { TUser } from "../types/global"
 
 type IntialStateType = {
-    users: User[],
+    users: TUser[],
 }
 
 const initialState: IntialStateType = {
