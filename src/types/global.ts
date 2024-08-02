@@ -1,11 +1,11 @@
 export type TUser = {
     id: string;
-    name: string,
-    age: number ,
-    email: string,
-    contact: number,
-    country: string
-}
+    name: string;
+    age: number | null;
+    email: string;
+    contact: number | null;
+    country: string;
+};
 
 export interface TUsers {
     users: TUser[];
