@@ -31,10 +31,13 @@ const BoxModel = () => {
     const Sides = ['left', 'right', 'top', 'bottom'];
 
     const [paddingFace, setPaddingFace] = useState<string>('left');
-    const [paddingValue, setPaddingValue] = useState<number>(1);
+    const [paddingValue, setPaddingValue] = useState<number>(0);
 
     const [marginFace, setMarginFace] = useState<string>('left');
-    const [marginValue, setMarginValue] = useState<number>(1);
+    const [marginValue, setMarginValue] = useState<number>(0);
+
+    const [borderFace, setBorderFace] = useState<string>('left');
+    const [borderValue, setBorderValue] = useState<number>(0);
 
     const initialProperty: TProperties = {
         border: {
@@ -67,6 +70,10 @@ const BoxModel = () => {
         setMarginValue(e.target.value);
     }
 
+    function handlleValueBorder(e: any) {
+        setBorderValue(e.target.value);
+    }
+
     const handlePaddingSide = (event: SelectChangeEvent) => {
         setPaddingFace(event.target.value as string);
     };
@@ -75,11 +82,16 @@ const BoxModel = () => {
         setMarginFace(event.target.value as string);
     };
 
+    const handleBorderFace = (event: SelectChangeEvent) => {
+        setBorderFace(event.target.value as string);
+    };
+
     const handleSet = () => {
         setProperties({
             ...properties,
             padding: { ...properties.padding, [paddingFace]: paddingValue },
             margin: { ...properties.margin, [marginFace]: marginValue },
+            border: { ...properties.border, [borderFace]: borderValue },
         });
         console.log(properties);
     };
@@ -89,16 +101,38 @@ const BoxModel = () => {
             model.current.style.padding = `${properties.padding.top}px ${properties.padding.right}px ${properties.padding.bottom}px ${properties.padding.left}px`;
 
             model.current.style.margin = `${properties.margin.top}px ${properties.margin.right}px ${properties.margin.bottom}px ${properties.margin.left}px`;
+
+            model.current.style.borderColor = '#000';
+            model.current.style.borderStyle = 'solid';
+
+            console.log(borderFace);
+
+            switch (borderFace) {
+                case 'top':
+                    model.current.style.borderTop = `${borderValue}px solid #000`;
+                    break;
+                case 'bottom':
+                    model.current.style.borderBottom = `${borderValue}px solid #000`;
+                    break;
+                case 'left':
+                    model.current.style.borderLeft = `${borderValue}px solid #000`;
+                    break;
+                case 'right':
+                    model.current.style.borderRight = `${borderValue}px solid #000`;
+                    break;
+                default:
+                    break;
+            }
         }
     }, [properties]);
 
     return (
         <div>
             <Title>Box Model</Title>
-            <Grid container spacing={2}>
+            <Grid container>
                 <Grid
                     item
-                    md={6}
+                    md={8}
                     sx={{ border: '1px solid #000', margin: '1rem', height: '10rem', overflow: 'hidden' }}
                 >
                     <Box>
@@ -108,7 +142,7 @@ const BoxModel = () => {
                     </Box>
                 </Grid>
 
-                <Grid item md={6}>
+                <Grid item md>
                     <Box sx={{ margin: '1rem 0' }}>
                         <TextField type="number" placeholder="padding" onChange={handleValuePadding} />
                         <FormControl>
@@ -121,7 +155,9 @@ const BoxModel = () => {
                                 onChange={handlePaddingSide}
                             >
                                 {Sides.map((side) => (
-                                    <MenuItem value={side}>{side}</MenuItem>
+                                    <MenuItem key={side} value={side}>
+                                        {side}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -138,7 +174,28 @@ const BoxModel = () => {
                                 onChange={handleMarginSide}
                             >
                                 {Sides.map((side) => (
-                                    <MenuItem value={side}>{side}</MenuItem>
+                                    <MenuItem key={side} value={side}>
+                                        {side}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ margin: '1rem 0' }}>
+                        <TextField type="number" placeholder="border" onChange={handlleValueBorder} />
+                        <FormControl>
+                            <InputLabel id="lebel-margin-side">Side</InputLabel>
+                            <Select
+                                labelId="lebel-margin-side"
+                                id="margin-side"
+                                value={borderFace}
+                                label="side"
+                                onChange={handleBorderFace}
+                            >
+                                {Sides.map((side) => (
+                                    <MenuItem key={side} value={side}>
+                                        {side}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
